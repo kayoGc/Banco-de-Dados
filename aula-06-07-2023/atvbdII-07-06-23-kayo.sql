@@ -15,7 +15,7 @@ CREATE TABLE carros (
 
 CREATE TABLE clientes (
 	idcliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	nomecliente VARCHAR(10) NOT NULL, 
+	nomecliente VARCHAR(70) NOT NULL, 
 	estado VARCHAR(2) NOT NULL
 );
 
@@ -27,10 +27,11 @@ CREATE TABLE vendas (
 );
 
 CREATE TABLE itensvendidos (
-	idvenda INT NOT NULL AUTO_INCREMENT, 
+	idvenda INT NOT NULL, 
 	idcarro INT NOT NULL,
-	qtdevendida INT NOT NULL,
+	qtdevendida TINYINT NOT NULL,
 	CONSTRAINT PK_itensvendidos PRIMARY KEY (idvenda, idcarro),
+	CONSTRAINT FK_itensvendidos_vendas FOREIGN KEY (idvenda) REFERENCES vendas(idvenda),
 	CONSTRAINT FK_itensvendidos_carros FOREIGN KEY (idcarro) REFERENCES carros(idcarro)
 );
 
@@ -143,3 +144,53 @@ insert into carros # FIAT
 	("098", "Fiat", "Linea", "2010", 30183.00),
 	("099", "Fiat", "Linea", "2011", 32209.00),
 	("100", "Fiat", "Linea", "2012", 34198.00);
+
+INSERT INTO clientes VALUES 
+(null, 'Felps', 'SP'),
+(null, 'Rafael Lange Serevino', 'SC'),
+(null, 'Joaquim Maria Machado de Assis', 'RJ'),
+(null, 'Alexandre Magno Abrão', 'SP'),
+(null, 'Priscila Novaes Leone', 'BA'),
+(null, 'Kayo Victor Gonçalo da Costa', 'SP'),
+(null, 'Leandro Roque de Oliveira', 'SP'),
+(null, 'Vinicius Gageiro Marques', 'RJ'),
+(null, 'Victor Schiavon', 'RS'),
+(null, 'Quincas Borba', 'RJ'); 
+
+INSERT INTO vendas VALUES
+(null, '2023-06-07', 1),
+(null, '2023-10-20', 2),
+(null, '2024-01-30', 3),
+(null, '2024-02-01', 4),
+(null, '2024-02-15', 5),
+(null, '2024-02-17', 6),
+(null, '2024-05-20', 7),
+(null, '2024-10-21', 8),
+(null, '2025-02-10', 9),
+(null, '2025-05-25', 10);
+
+INSERT INTO itensvendidos VALUES
+(1, 53, 2),
+(1, 4, 1),
+(2, 100, 1),
+(2, 67, 1),
+(3, 78, 3),
+(4, 69, 1),
+(4, 78, 2),
+(5, 15, 3),
+(6, 10, 1),
+(6, 88, 1),
+(6, 54, 1),
+(7, 40, 1),
+(7, 30, 2),
+(8, 50, 3),
+(9, 70, 2),
+(9, 71, 1),
+(10, 1, 3);
+
+SELECT v.idvenda, v.datavenda, cl.nomecliente, ca.modelo, i.qtdevendida 
+FROM vendas AS v INNER JOIN clientes AS cl 
+ON v.idcliente = cl.idcliente 
+INNER JOIN itensvendidos AS i ON v.idvenda = i.idvenda
+INNER JOIN carros AS ca ON i.idcarro = ca.idcarro 
+ORDER BY i.qtdevendida DESC;  
