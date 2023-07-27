@@ -1,4 +1,4 @@
-# Banco de Dados
+# Banco de Dados - Etec Irmã Agostina
 Conteúdos e atividades das aulas de Banco de Dados da Etec Irmã Agostina
 
 ## Ferramentas Utilizadas
