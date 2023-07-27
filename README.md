@@ -1,2 +1,2 @@
 # banco-de-dados
-Conteudo e atividades de banco de dados das aulas da Etec Irmã Agostina
+Conteudo e atividades das aulas de banco de dados da Etec Irmã Agostina
